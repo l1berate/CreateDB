@@ -6,12 +6,15 @@ SqlConnection con = new SqlConnection(
     "server=DESKTOP-A1JL32J;database=bankingDB;integrated security=true");
 con.Open();
 
+Console.WriteLine("Generating Accounts & Transactions...");
+
 int usrNo = 0;
 int accNo = 10000;
 Random rnd = new Random(94632);
 
 for (int i = 10001; i <= 11000; i++)
 {
+    Console.Write(accNo-9999 + " accounts made so far...         \r");
     // randomly generate number of accounts and which accounts each person has
     // each person should have a checkings with savings and loan optional
     // the i variable will be the userNumber
@@ -223,7 +226,7 @@ for (int i = 10001; i <= 11000; i++)
 
             //first transaction - update TRANSACTIONS table
             cmd2 = new SqlCommand(
-                "insert into TRANSACTIONS (accNumber, userNumber, transAmount, transDescription) values (@accNo, @usrNo, @initialDeposit, 'Initial Deposit')",
+                "insert into TRANSACTIONS (accNumber, userNumber, transAmount, transDescription) values (@accNo, @usrNo, @initialDeposit, 'Loan Approved')",
                 con);
             cmd2.Parameters.AddWithValue("@accNo", accNo);
             cmd2.Parameters.AddWithValue("@usrNo", usrNo);
@@ -242,7 +245,7 @@ for (int i = 10001; i <= 11000; i++)
                 }
                 else
                 {
-                    transAmount = Math.Round(accBalanceS*1.1, 2);
+                    transAmount = Math.Round(accBalanceS*0.1, 2);
                 }
 
                 // update TRANSACTIONS table
@@ -354,7 +357,7 @@ for (int i = 10001; i <= 11000; i++)
 
             //first transaction - update TRANSACTIONS table
             cmd2 = new SqlCommand(
-                "insert into TRANSACTIONS (accNumber, userNumber, transAmount, transDescription) values (@accNo, @usrNo, @initialDeposit, 'Initial Deposit')",
+                "insert into TRANSACTIONS (accNumber, userNumber, transAmount, transDescription) values (@accNo, @usrNo, @initialDeposit, 'Loan Approved')",
                 con);
             cmd2.Parameters.AddWithValue("@accNo", accNo);
             cmd2.Parameters.AddWithValue("@usrNo", usrNo);
@@ -373,7 +376,7 @@ for (int i = 10001; i <= 11000; i++)
                 }
                 else
                 {
-                    transAmount = Math.Round(accBalanceS * 1.1, 2);
+                    transAmount = Math.Round(accBalanceS * 0.1, 2);
                 }
 
                 // update TRANSACTIONS table
@@ -423,3 +426,7 @@ for (int i = 10001; i <= 11000; i++)
 }
 
 con.Close();
+Console.WriteLine();
+Console.WriteLine("All done, press any key to exit.");
+Console.ReadKey();
+Environment.Exit(0);
